@@ -1,0 +1,61 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model User {
+  id        String   @id @default(uuid())
+  name      String
+  email     String   @unique
+  role      String
+  createdAt DateTime @default(now())
+
+  eventGroups EventGroup[]
+  attendances Attendance[]
+}
+
+model EventGroup {
+  id          String   @id @default(uuid())
+  name        String
+  description String?
+  organizerId String
+  createdAt   DateTime @default(now())
+
+  organizer User    @relation(fields: [organizerId], references: [id])
+  events    Event[]
+}
+
+model Event {
+  id           String   @id @default(uuid())
+  eventGroupId String
+  name         String
+  description  String?
+  startTime    DateTime
+  endTime      DateTime
+  status       String   @default("CLOSED")
+  accessCode   String   @unique
+  qrCode       String?
+  createdAt    DateTime @default(now())
+
+  eventGroup  EventGroup   @relation(fields: [eventGroupId], references: [id])
+  attendances Attendance[]
+}
+
+model Attendance {
+  id            String   @id @default(uuid())
+  eventId       String
+  participantId String
+  checkInTime   DateTime @default(now())
+
+  event       Event @relation(fields: [eventId], references: [id])
+  participant User  @relation(fields: [participantId], references: [id])
+
+  @@unique([eventId, participantId])
+}
