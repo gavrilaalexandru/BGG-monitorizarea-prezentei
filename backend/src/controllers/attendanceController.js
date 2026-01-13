@@ -5,12 +5,26 @@ exports.markAttendance = async (req, res) => {
   try {
     const { accessCode, participantId } = req.body;
 
+    const participant = await prisma.user.findUnique({
+      where: { id: participantId },
+    });
+
+    if (!participant) {
+      return res.status(404).json({ error: "Participant not found" });
+    }
+
     const event = await prisma.event.findUnique({
       where: { accessCode },
     });
 
     if (!event) {
       return res.status(404).json({ error: "Invalid access code" });
+    }
+
+    if (event.status !== "OPEN") {
+      return res
+        .status(400)
+        .json({ error: "Event is not open for attendance" });
     }
 
     const existingAttendance = await prisma.attendance.findUnique({

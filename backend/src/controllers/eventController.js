@@ -6,6 +6,18 @@ exports.createEventGroup = async (req, res) => {
   try {
     const { name, description, organizerId, events } = req.body;
 
+    const organizer = await prisma.user.findUnique({
+      where: { id: organizerId },
+    });
+
+    if (!organizer) {
+      return res.status(404).json({ error: "Organizer not found" });
+    }
+
+    if (organizer.role !== "ORGANIZER") {
+      return res.status(403).json({ error: "User is not an organizer" });
+    }
+
     const eventGroup = await prisma.eventGroup.create({
       data: {
         name,
