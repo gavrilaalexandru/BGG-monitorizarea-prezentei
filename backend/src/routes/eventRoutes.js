@@ -9,5 +9,6 @@ router.get(
   eventController.getEventGroupsByOrganizer,
 );
 router.get("/:id", eventController.getEventById);
+router.get("/", eventController.getAllEventGroups);
 
 module.exports = router;

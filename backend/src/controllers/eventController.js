@@ -43,6 +43,17 @@ exports.createEventGroup = async (req, res) => {
   }
 };
 
+exports.getAllEventGroups = async (req, res) => {
+  try {
+    const eventGroups = await prisma.eventGroup.findMany({
+      include: { events: true },
+    });
+    res.json(eventGroups);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
 exports.getEventGroupsByOrganizer = async (req, res) => {
   try {
     const { organizerId } = req.params;
