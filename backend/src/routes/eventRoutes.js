@@ -9,6 +9,5 @@ router.get(
   eventController.getEventGroupsByOrganizer,
 );
 router.get("/:id", eventController.getEventById);
-router.put("/:id/status", eventController.updateEventStatus);
 
 module.exports = router;
