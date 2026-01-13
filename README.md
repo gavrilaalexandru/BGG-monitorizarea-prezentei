@@ -1,4 +1,4 @@
-# attd_tracker
+# monitorizarea prezenței
 ## Funcționalități
 - Ca organizator al unui eveniment (OE) trebuie să pot adăuga un grup de evenimente.
 - Un grup de evenimente poate conține un singur eveniment sau un grup de evenimente repetate pentru o perioadă de timp.
