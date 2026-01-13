@@ -17,7 +17,15 @@ app.use(express.json());
 app.use(requestLogger);
 
 app.get("/", (req, res) => {
-  res.json({ message: "Attendance API is running" });
+  res.redirect("/health");
+});
+
+app.get("/health", (req, res) => {
+  res.status(200).json({
+    status: "healthy",
+    message: "Attendance API is running",
+    timestamp: new Date().toISOString(),
+  });
 });
 
 app.use("/api/users", userRoutes);
