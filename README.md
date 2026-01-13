@@ -1,4 +1,5 @@
 # attd_tracker
+## Funcționalități
 - Ca organizator al unui eveniment (OE) trebuie să pot adăuga un grup de evenimente.
 - Un grup de evenimente poate conține un singur eveniment sau un grup de evenimente repetate pentru o perioadă de timp.
 - Un eveniment este inițial în starea CLOSED. La momentul programat, evenimentul devine OPEN. După intervalul în care se desfășoară evenimentul, starea evenimentului este din nou CLOSED.
