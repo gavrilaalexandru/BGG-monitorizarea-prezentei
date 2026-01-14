@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { loadUserFromStorage } from "./store/slices/authSlice";
 import AuthPage from "./pages/AuthPage";
 import Dashboard from "./pages/Dashboard";
-import "./App.css";
 
 function App() {
   const dispatch = useDispatch();
