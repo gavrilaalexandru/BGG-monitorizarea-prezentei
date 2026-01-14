@@ -1,6 +1,6 @@
 const prisma = require("../prisma");
 const { exportToCSV, exportToXLSX } = require("../services/exportService");
-
+// validarea participantului, al codului de acces, verificarea daca evenimentul poate fi accesat si daca prezenta a fost deja pusa, crearea in baza de date a prezentei
 exports.markAttendance = async (req, res) => {
   try {
     const { accessCode, participantId } = req.body;
@@ -56,7 +56,7 @@ exports.markAttendance = async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 };
-
+// query la baza de date pentru un return json cu prezenta la un anumit eveniment
 exports.getEventAttendance = async (req, res) => {
   try {
     const { eventId } = req.params;
@@ -72,7 +72,7 @@ exports.getEventAttendance = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
-
+// exportarea unui eveniment in CSV
 exports.exportEventCSV = async (req, res) => {
   try {
     const { eventId } = req.params;
@@ -96,7 +96,7 @@ exports.exportEventCSV = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
-
+// exportarea unui grup de evenimente in XLSX
 exports.exportEventGroupXLSX = async (req, res) => {
   try {
     const { eventGroupId } = req.params;

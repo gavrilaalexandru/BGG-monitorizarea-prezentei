@@ -6,5 +6,5 @@ const connectionString = process.env.DATABASE_URL;
 
 const adapter = new PrismaBetterSqlite3({ url: connectionString });
 const prisma = new PrismaClient({ adapter });
-
+// utilizat pentru a importa direct prisma
 module.exports = prisma;

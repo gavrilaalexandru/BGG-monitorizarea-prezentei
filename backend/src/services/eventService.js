@@ -1,5 +1,5 @@
 const prisma = require("../prisma");
-
+// pentru sincronizarea cu statusul evenimentului
 exports.syncEventStatus = async (event) => {
   const now = new Date();
   const startTime = new Date(event.startTime);

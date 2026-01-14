@@ -1,3 +1,4 @@
+// middleware pentru validarea diverselor campuri ale userului
 exports.validateUser = (req, res, next) => {
   const { name, email, role } = req.body;
 
@@ -18,7 +19,7 @@ exports.validateUser = (req, res, next) => {
 
   next();
 };
-
+// validarea grupurilor de evenimente
 exports.validateEventGroup = (req, res, next) => {
   const { name, organizerId, events } = req.body;
 
@@ -49,7 +50,7 @@ exports.validateEventGroup = (req, res, next) => {
 
   next();
 };
-
+// verificarea prezentei
 exports.validateAttendance = (req, res, next) => {
   const { accessCode, participantId } = req.body;
 

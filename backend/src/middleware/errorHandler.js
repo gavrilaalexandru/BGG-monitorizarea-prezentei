@@ -1,3 +1,4 @@
+// error handler pentru diverse campuri, primar pentru prisma
 exports.errorHandler = (err, req, res, next) => {
   console.error("Error:", err);
 

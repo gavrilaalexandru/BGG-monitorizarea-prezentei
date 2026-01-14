@@ -20,6 +20,7 @@ app.get("/", (req, res) => {
   res.redirect("/health");
 });
 
+// default endpoint
 app.get("/health", (req, res) => {
   res.status(200).json({
     status: "healthy",

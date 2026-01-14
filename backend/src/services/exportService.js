@@ -1,5 +1,5 @@
 const XLSX = require("xlsx");
-
+// export spre csv (pentru un singur eveniment)
 exports.exportToCSV = (attendances) => {
   let csv = "Event Name,Participant Name,Participant Email,Check-in Time\n";
 
@@ -9,7 +9,7 @@ exports.exportToCSV = (attendances) => {
 
   return csv;
 };
-
+// export spre xlsx (pentru event group)
 exports.exportToXLSX = async (eventGroup) => {
   const workbook = XLSX.utils.book_new();
 

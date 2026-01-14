@@ -1,3 +1,4 @@
+// generare cod de access random din alfabetul limbii engleze + toate cifrele
 exports.generateAccessCode = () => {
   const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
   let code = "";

@@ -2,7 +2,7 @@ const prisma = require("../prisma");
 const { generateAccessCode } = require("../services/codeGenerator");
 const { generateQRCode } = require("../services/qrCodeService");
 const { syncEventStatus } = require("../services/eventService");
-
+// creearea unui grup de evenimente cu generarea de coduri qr si de acces pentru evenimente
 exports.createEventGroup = async (req, res) => {
   try {
     const { name, description, organizerId, events } = req.body;
@@ -53,7 +53,7 @@ exports.createEventGroup = async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 };
-
+// query la baza de date pentru un return json cu toate evenimentele
 exports.getAllEventGroups = async (req, res) => {
   try {
     const eventGroups = await prisma.eventGroup.findMany({
@@ -64,7 +64,7 @@ exports.getAllEventGroups = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
-
+// query la baza de date pentru un return json cu toate grupurile de evenimente ale unui anumit organizator
 exports.getEventGroupsByOrganizer = async (req, res) => {
   try {
     const { organizerId } = req.params;
@@ -79,7 +79,7 @@ exports.getEventGroupsByOrganizer = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
-
+// query la baza de date dupa pentru un return json cu un anume eveniment
 exports.getEventById = async (req, res) => {
   try {
     const { id } = req.params;
@@ -105,7 +105,7 @@ exports.getEventById = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
-
+// query la baza de date pentru a gasi un qr code aferent unui anumit eveniment (util la afisarea codului QR)
 exports.getEventQRCode = async (req, res) => {
   try {
     const { id } = req.params;

@@ -1,5 +1,5 @@
 const QRCode = require("qrcode");
-
+// genereaza codul qr bazat pe codul de access
 exports.generateQRCode = async (text) => {
   try {
     const qrCodeDataURL = await QRCode.toDataURL(text, {
