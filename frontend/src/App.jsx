@@ -3,6 +3,8 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loadUserFromStorage } from "./store/slices/authSlice";
 import AuthPage from "./pages/AuthPage";
+import Dashboard from "./pages/Dashboard";
+import "./App.css";
 
 function App() {
   const dispatch = useDispatch();
@@ -21,7 +23,7 @@ function App() {
 
       <Route
         path="/dashboard"
-        element={user ? <div>Dashboard</div> : <Navigate to="/" />}
+        element={user ? <Dashboard /> : <Navigate to="/" />}
       />
     </Routes>
   );
