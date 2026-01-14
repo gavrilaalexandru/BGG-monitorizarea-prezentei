@@ -10,5 +10,6 @@ router.get(
 );
 router.get("/:id", eventController.getEventById);
 router.get("/", eventController.getAllEventGroups);
+router.get("/:id/qrcode", eventController.getEventQRCode);
 
 module.exports = router;
