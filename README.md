@@ -7,3 +7,44 @@
 - Participanții introduc codul în aplicație și devin prezenți. Introducerea se poate face printr-o poză cu telefonul mobil pentru codurile QR sau printr-un text input pentru codurile text
 - OE poate monitoriza lista participanților prezenți și poate vedea momentul în care fiecare participant și-a confirmat prezența
 - OE poate exporta lista cu participanții într-un fișier CSV sau XLSX, atât pentru un singur eveniment cât și pentru un grup de evenimente.
+
+# Instrucțiuni de utilizare
+
+## Clonare Proiect
+```bash
+git clone [https://github.com/username/project.git](https://github.com/gavrilaalexandru/BGG-monitorizarea-prezentei)
+cd BGG-monitorizarea-prezentei
+```
+
+## Setup Backend
+
+### Instalare dependențe
+```bash
+cd backend
+npm install
+```
+### Configurare variabile de mediu
+```
+PORT=3000
+DATABASE_URL="file:./dev.db"
+```
+
+## Pornire backend
+```bash
+npm run dev
+```
+
+## Setup Frontend
+
+### Instalare dependențe
+```bash
+cd
+cd frontend
+npm install
+```
+
+### Pornire frontend
+```bash
+npm run dev
+```
+
