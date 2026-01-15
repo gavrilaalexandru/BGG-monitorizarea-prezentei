@@ -11,31 +11,25 @@ function ChangePassword() {
   const navigate = useNavigate();
   const { error, user } = useSelector((state) => state.auth);
 
-  const [toastMessage, setToastMessage] = useState("");
+  const [email, setEmail] = useState("");
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (!user) {
-      dispatch(setError("You must be logged in to change password"));
-      return;
-    }
 
     if (newPassword.length < 6) {
       dispatch(setError("New password must be at least 6 characters"));
       return;
     }
-
     if (newPassword !== confirmPassword) {
       dispatch(setError("Passwords do not match"));
       return;
     }
-
-    if (newPassword === currentPassword) {
+    if (user && newPassword === currentPassword) {
       dispatch(
         setError("New password must be different from current password"),
       );
@@ -44,15 +38,25 @@ function ChangePassword() {
 
     setIsLoading(true);
     try {
-      await changePassword({ userId: user.id, currentPassword, newPassword });
+      const payload = user
+        ? { userId: user.id, currentPassword, newPassword }
+        : { email, currentPassword, newPassword };
+
+      await changePassword(payload);
+
       setToastMessage("Password changed successfully");
       setCurrentPassword("");
       setNewPassword("");
       setConfirmPassword("");
       dispatch(setError(""));
+
       setTimeout(() => {
         setToastMessage("");
-        navigate("/dashboard");
+        if (user) {
+          navigate("/dashboard");
+        } else {
+          navigate("/");
+        }
       }, 3000);
     } catch (err) {
       dispatch(
@@ -65,14 +69,28 @@ function ChangePassword() {
 
   return (
     <div>
-      <Navbar />
+      {user && <Navbar />}
+
       {toastMessage && <div className="toast-message">{toastMessage}</div>}
 
       <div className="change-password-container">
         <form onSubmit={handleSubmit} className="change-password-card">
-          <h1>Change Password</h1>
+          <h1>{user ? "Change Password" : "Reset Password"}</h1>
 
           {error && <div className="error-message">{error}</div>}
+
+          {!user && (
+            <div className="form-group">
+              <label>Email *</label>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                placeholder="your@email.com"
+              />
+            </div>
+          )}
 
           <div className="form-group">
             <label>Current Password *</label>
@@ -110,12 +128,16 @@ function ChangePassword() {
             <button
               type="button"
               className="cancel-btn"
-              onClick={() => navigate("/dashboard")}
+              onClick={() => navigate(user ? "/dashboard" : "/")}
             >
               Cancel
             </button>
             <button type="submit" className="submit-btn" disabled={isLoading}>
-              {isLoading ? "Saving..." : "Change Password"}
+              {isLoading
+                ? "Saving..."
+                : user
+                  ? "Change Password"
+                  : "Reset Password"}
             </button>
           </div>
         </form>

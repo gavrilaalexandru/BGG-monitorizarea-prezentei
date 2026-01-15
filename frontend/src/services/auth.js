@@ -15,15 +15,7 @@ export const getAllUsers = async () => {
   return response.data;
 };
 
-export const changePassword = async ({
-  userId,
-  currentPassword,
-  newPassword,
-}) => {
-  const response = await api.post("/auth/change-password", {
-    userId,
-    currentPassword,
-    newPassword,
-  });
+export const changePassword = async (payload) => {
+  const response = await api.post("/auth/change-password", payload);
   return response.data;
 };

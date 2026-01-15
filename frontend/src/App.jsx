@@ -74,10 +74,7 @@ function App() {
         }
       />
 
-      <Route
-        path="/change-password"
-        element={user ? <ChangePassword /> : <Navigate to="/" />}
-      />
+      <Route path="/change-password" element={<ChangePassword />} />
     </Routes>
   );
 }

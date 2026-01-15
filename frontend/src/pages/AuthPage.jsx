@@ -118,6 +118,20 @@ function AuthPage() {
             <button type="submit" className="submit-btn">
               Login
             </button>
+
+            <p className="reset-password-text">
+              Forgot password?{" "}
+              <button
+                type="button"
+                className="reset-link"
+                onClick={(e) => {
+                  e.preventDefault();
+                  navigate("/change-password");
+                }}
+              >
+                Reset here
+              </button>
+            </p>
           </form>
         ) : (
           <form onSubmit={handleRegister} className="auth-form">
