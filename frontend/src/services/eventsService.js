@@ -25,6 +25,11 @@ export const getEventAttendance = async (eventId) => {
   return response.data;
 };
 
+export const getParticipantAttendances = async (participantId) => {
+  const response = await api.get(`/attendance/participant/${participantId}`);
+  return response.data;
+};
+
 export const markAttendance = async (accessCode, participantId) => {
   const response = await api.post("/attendance", {
     accessCode,

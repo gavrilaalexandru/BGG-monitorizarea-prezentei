@@ -10,5 +10,9 @@ router.get(
   "/group/:eventGroupId/export/xlsx",
   attendanceController.exportEventGroupXLSX,
 );
+router.get(
+  "/participant/:participantId",
+  attendanceController.getParticipantAttendances,
+);
 
 module.exports = router;

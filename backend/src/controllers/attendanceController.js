@@ -133,3 +133,25 @@ exports.exportEventGroupXLSX = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+// query la baza de date pentru un return json cu toate prezentele participantului
+exports.getParticipantAttendances = async (req, res) => {
+  try {
+    const { participantId } = req.params;
+
+    const attendances = await prisma.attendance.findMany({
+      where: { participantId },
+      include: {
+        event: {
+          include: {
+            eventGroup: true,
+          },
+        },
+      },
+      orderBy: { checkInTime: "desc" },
+    });
+
+    res.json(attendances);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
