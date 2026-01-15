@@ -16,27 +16,49 @@ function AuthPage() {
 
   const [showLogin, setShowLogin] = useState(true);
   const [loginEmail, setLoginEmail] = useState("");
+  const [loginPassword, setLoginPassword] = useState("");
   const [registerData, setRegisterData] = useState({
     name: "",
     email: "",
+    password: "",
+    confirmPassword: "",
     role: "PARTICIPANT",
   });
 
   const handleLogin = async (e) => {
     e.preventDefault();
+
     try {
-      const user = await loginUser(loginEmail);
+      const user = await loginUser(loginEmail, loginPassword);
       dispatch(loginSuccess(user));
       navigate("/dashboard");
     } catch (err) {
-      dispatch(setError(err.message));
+      dispatch(setError(err.response?.data?.error || "Login failed"));
     }
   };
 
+  // Handle Register
   const handleRegister = async (e) => {
     e.preventDefault();
+
+    // Validare parolă
+    if (registerData.password.length < 6) {
+      dispatch(setError("Password must be at least 6 characters"));
+      return;
+    }
+
+    if (registerData.password !== registerData.confirmPassword) {
+      dispatch(setError("Passwords do not match"));
+      return;
+    }
+
     try {
-      const user = await registerUser(registerData);
+      const user = await registerUser({
+        name: registerData.name,
+        email: registerData.email,
+        password: registerData.password,
+        role: registerData.role,
+      });
       dispatch(registerSuccess(user));
       navigate("/dashboard");
     } catch (err) {
@@ -82,6 +104,17 @@ function AuthPage() {
               />
             </div>
 
+            <div className="form-group">
+              <label>Password</label>
+              <input
+                type="password"
+                value={loginPassword}
+                onChange={(e) => setLoginPassword(e.target.value)}
+                placeholder="••••••••"
+                required
+              />
+            </div>
+
             <button type="submit" className="submit-btn">
               Login
             </button>
@@ -110,6 +143,36 @@ function AuthPage() {
                   setRegisterData({ ...registerData, email: e.target.value })
                 }
                 placeholder="your@email.com"
+                required
+              />
+            </div>
+
+            <div className="form-group">
+              <label>Password</label>
+              <input
+                type="password"
+                value={registerData.password}
+                onChange={(e) =>
+                  setRegisterData({ ...registerData, password: e.target.value })
+                }
+                placeholder="Minimum 6 characters"
+                required
+                minLength={6}
+              />
+            </div>
+
+            <div className="form-group">
+              <label>Confirm Password</label>
+              <input
+                type="password"
+                value={registerData.confirmPassword}
+                onChange={(e) =>
+                  setRegisterData({
+                    ...registerData,
+                    confirmPassword: e.target.value,
+                  })
+                }
+                placeholder="Repeat password"
                 required
               />
             </div>
