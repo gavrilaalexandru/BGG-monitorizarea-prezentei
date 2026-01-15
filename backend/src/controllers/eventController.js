@@ -22,7 +22,7 @@ exports.createEventGroup = async (req, res) => {
     const eventsWithQR = await Promise.all(
       events.map(async (event) => {
         const accessCode = generateAccessCode();
-        const qrCode = await generateQRCodeDataURL(accessCode);
+        const qrCode = await generateQRCode(accessCode);
 
         return {
           name: event.name,
