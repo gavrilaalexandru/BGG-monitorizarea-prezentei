@@ -128,3 +128,144 @@
     color: #6b7280;
     font-size: 18px;
 }
+
+.header-actions {
+    display: flex;
+    gap: 12px;
+}
+
+.add-event-btn {
+    padding: 10px 20px;
+    background-color: #10b981;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.add-event-btn:hover {
+    background-color: #059669;
+}
+
+.add-event-form-container {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 24px;
+}
+
+.add-event-form h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 20px;
+}
+
+.add-event-form .form-group {
+    margin-bottom: 16px;
+}
+
+.add-event-form .form-group label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    color: #374151;
+    margin-bottom: 6px;
+}
+
+.add-event-form .form-group input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.add-event-form .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.form-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.cancel-btn {
+    flex: 1;
+    padding: 10px;
+    background-color: white;
+    color: #6b7280;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.cancel-btn:hover {
+    background-color: #f9fafb;
+}
+
+.submit-btn {
+    flex: 1;
+    padding: 10px;
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.submit-btn:hover {
+    background-color: #1d4ed8;
+}
+
+.delete-event-btn {
+    background: #ef4444; /* roșu */
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    padding: 6px 10px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.delete-event-btn:hover {
+    background-color: #dc2626;
+}
+
+.edit-event-btn {
+    background: #3b82f6;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    padding: 6px 10px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.edit-event-btn:hover {
+    background-color: #2563eb;
+}
+
+.event-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.event-info {
+    flex: 1;
+    cursor: pointer;
+}

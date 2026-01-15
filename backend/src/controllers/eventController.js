@@ -129,3 +129,112 @@ exports.getEventQRCode = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+// adauga eveniment la un grup de evenimente existent
+exports.addEventToGroup = async (req, res) => {
+  try {
+    const { groupId } = req.params;
+    const { name, description, startTime, endTime } = req.body;
+    const organizerId = req.body.organizerId;
+
+    const eventGroup = await prisma.eventGroup.findUnique({
+      where: { id: groupId },
+    });
+
+    if (!eventGroup) {
+      return res.status(404).json({ error: "Event group not found" });
+    }
+
+    if (eventGroup.organizerId !== organizerId) {
+      return res.status(403).json({ error: "Not authorized" });
+    }
+
+    const accessCode = generateAccessCode();
+    const qrCode = await generateQRCode(accessCode);
+
+    const event = await prisma.event.create({
+      data: {
+        eventGroupId: groupId,
+        name,
+        description,
+        startTime: new Date(startTime),
+        endTime: new Date(endTime),
+        accessCode,
+        qrCode,
+        status: "CLOSED",
+      },
+    });
+
+    res.status(201).json(event);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+// modifica un eveniment dintr-un grup de evenimente existent
+exports.updateEvent = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { name, description, startTime, endTime, organizerId } = req.body;
+
+    const event = await prisma.event.findUnique({
+      where: { id },
+      include: { eventGroup: true },
+    });
+
+    if (!event) {
+      return res.status(404).json({ error: "Event not found" });
+    }
+
+    if (event.eventGroup.organizerId !== organizerId) {
+      return res.status(403).json({ error: "Not authorized" });
+    }
+
+    const updatedEvent = await prisma.event.update({
+      where: { id },
+      data: {
+        name,
+        description,
+        startTime: startTime ? new Date(startTime) : undefined,
+        endTime: endTime ? new Date(endTime) : undefined,
+      },
+    });
+
+    res.json(updatedEvent);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+// sterge un eveniment dintr-un grup de evenimente existent
+exports.deleteEvent = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { organizerId } = req.body;
+
+    const event = await prisma.event.findUnique({
+      where: { id },
+      include: { eventGroup: true },
+    });
+
+    if (!event) {
+      return res.status(404).json({ error: "Event not found" });
+    }
+
+    if (event.eventGroup.organizerId !== organizerId) {
+      return res.status(403).json({ error: "Not authorized" });
+    }
+
+    await prisma.attendance.deleteMany({
+      where: { eventId: id },
+    });
+
+    await prisma.event.delete({
+      where: { id },
+    });
+
+    res.json({ message: "Event deleted successfully" });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};

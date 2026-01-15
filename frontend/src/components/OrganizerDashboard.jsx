@@ -69,7 +69,10 @@ function OrganizerDashboard() {
               <h3>{group.name}</h3>
               {group.description && <p>{group.description}</p>}
               <div className="group-info">
-                <span>{group.events?.length || 0} events</span>
+                <span>
+                  {group.events?.length || 0}{" "}
+                  {group.events?.length === 1 ? "event" : "events"}
+                </span>
                 <span className="view-link">View →</span>
               </div>
             </div>

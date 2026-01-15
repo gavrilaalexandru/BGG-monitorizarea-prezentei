@@ -10,6 +10,26 @@ export const createEventGroup = async (groupData) => {
   return response.data;
 };
 
+export const addEventToGroup = async (groupId, eventData) => {
+  const response = await api.post(
+    `/events/groups/${groupId}/events`,
+    eventData,
+  );
+  return response.data;
+};
+
+export const updateEvent = async (eventId, eventData) => {
+  const response = await api.put(`/events/${eventId}`, eventData);
+  return response.data;
+};
+
+export const deleteEvent = async (eventId, organizerId) => {
+  const response = await api.delete(`/events/${eventId}`, {
+    data: { organizerId },
+  });
+  return response.data;
+};
+
 export const getEventById = async (eventId) => {
   const response = await api.get(`/events/${eventId}`);
   return response.data;

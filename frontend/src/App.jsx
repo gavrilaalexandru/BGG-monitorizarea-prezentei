@@ -7,6 +7,7 @@ import Dashboard from "./pages/Dashboard";
 import CreateEventGroup from "./pages/CreateEventGroup";
 import EventGroupDetails from "./pages/EventGroupDetails";
 import EventDetails from "./pages/EventDetails";
+import EditEvent from "./pages/EditEvent";
 
 function App() {
   const dispatch = useDispatch();
@@ -55,6 +56,17 @@ function App() {
         element={
           user?.role === "ORGANIZER" ? (
             <EventDetails />
+          ) : (
+            <Navigate to="/dashboard" />
+          )
+        }
+      />
+
+      <Route
+        path="/events/edit/:id"
+        element={
+          user?.role === "ORGANIZER" ? (
+            <EditEvent />
           ) : (
             <Navigate to="/dashboard" />
           )
