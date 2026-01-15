@@ -5,6 +5,7 @@ const cors = require("cors");
 const eventRoutes = require("./routes/eventRoutes");
 const attendanceRoutes = require("./routes/attendanceRoutes");
 const userRoutes = require("./routes/userRoutes");
+const authRoutes = require("./routes/authRoutes");
 
 const { requestLogger } = require("./middleware/logger");
 const { errorHandler } = require("./middleware/errorHandler");
