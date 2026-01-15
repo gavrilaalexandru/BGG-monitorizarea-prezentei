@@ -8,6 +8,7 @@ import CreateEventGroup from "./pages/CreateEventGroup";
 import EventGroupDetails from "./pages/EventGroupDetails";
 import EventDetails from "./pages/EventDetails";
 import EditEvent from "./pages/EditEvent";
+import ChangePassword from "./pages/ChangePassword";
 
 function App() {
   const dispatch = useDispatch();
@@ -71,6 +72,11 @@ function App() {
             <Navigate to="/dashboard" />
           )
         }
+      />
+
+      <Route
+        path="/change-password"
+        element={user ? <ChangePassword /> : <Navigate to="/" />}
       />
     </Routes>
   );

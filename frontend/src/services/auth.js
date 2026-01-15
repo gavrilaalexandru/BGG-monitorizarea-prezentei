@@ -14,3 +14,16 @@ export const getAllUsers = async () => {
   const response = await api.get("/users");
   return response.data;
 };
+
+export const changePassword = async ({
+  userId,
+  currentPassword,
+  newPassword,
+}) => {
+  const response = await api.post("/auth/change-password", {
+    userId,
+    currentPassword,
+    newPassword,
+  });
+  return response.data;
+};
