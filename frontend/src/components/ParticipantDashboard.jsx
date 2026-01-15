@@ -106,10 +106,8 @@ function ParticipantDashboard() {
             {attendances.map((att) => (
               <div key={att.id} className="history-item">
                 <div className="history-info">
-                  <strong>{att.event.name}</strong>
-                  <span className="history-group">
-                    {att.event.eventGroup?.name}
-                  </span>
+                  <strong>{att.event.eventGroup?.name || "N/A"}</strong>
+                  <span className="history-event">{att.event.name}</span>
                   <span className="history-date">
                     {new Date(att.checkInTime).toLocaleString("ro-RO")}
                   </span>
