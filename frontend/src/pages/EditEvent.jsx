@@ -14,6 +14,7 @@ function EditEvent() {
     endTime: "",
   });
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     const loadEvent = async () => {
@@ -26,7 +27,7 @@ function EditEvent() {
           endTime: event.endTime?.slice(0, 16) || "",
         });
       } catch (err) {
-        console.error(err);
+        setError(`Failed to load event data ${err.message}`);
       } finally {
         setIsLoading(false);
       }
@@ -36,11 +37,26 @@ function EditEvent() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError("");
+
+    const start = new Date(eventData.startTime);
+    const end = new Date(eventData.endTime);
+
+    if (start >= end) {
+      setError("End time must be after start time");
+      return;
+    }
+
+    if (start < new Date()) {
+      setError("Start time cannot be in the past");
+      return;
+    }
+
     try {
       await updateEvent(id, eventData);
       navigate(-1);
     } catch (err) {
-      alert(`Failed to update event: ${err.message}`);
+      setError(err.response?.data?.error || "Failed to update event");
     }
   };
 
@@ -57,11 +73,11 @@ function EditEvent() {
     <div>
       <Navbar />
 
-      {/* Container centrat pentru întreaga pagină */}
       <div className="edit-event-container">
-        {/* Formul propriu-zis */}
         <form onSubmit={handleSubmit} className="edit-event-card">
           <h1>Edit Event</h1>
+
+          {error && <div className="error-message">{error}</div>}
 
           <div className="form-group">
             <label>Name *</label>

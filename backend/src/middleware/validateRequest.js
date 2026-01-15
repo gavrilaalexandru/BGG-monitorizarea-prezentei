@@ -62,3 +62,31 @@ exports.validateAttendance = (req, res, next) => {
 
   next();
 };
+
+// validare pentru adaugare eveniment individual
+exports.validateEvent = (req, res, next) => {
+  const { name, startTime, endTime } = req.body;
+
+  if (!name || !startTime || !endTime) {
+    return res.status(400).json({
+      error: "Name, startTime and endTime are required",
+    });
+  }
+
+  const start = new Date(startTime);
+  const end = new Date(endTime);
+
+  if (isNaN(start.getTime()) || isNaN(end.getTime())) {
+    return res.status(400).json({
+      error: "Invalid date format",
+    });
+  }
+
+  if (start >= end) {
+    return res.status(400).json({
+      error: "Event end time must be after start time",
+    });
+  }
+
+  next();
+};

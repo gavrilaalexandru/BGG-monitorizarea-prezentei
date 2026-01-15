@@ -23,6 +23,7 @@ function EventGroupDetails() {
     startTime: "",
     endTime: "",
   });
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     loadEventGroup();
@@ -75,6 +76,20 @@ function EventGroupDetails() {
 
   const handleAddEvent = async (e) => {
     e.preventDefault();
+    setErrorMessage("");
+
+    const start = new Date(newEvent.startTime);
+    const end = new Date(newEvent.endTime);
+
+    if (start >= end) {
+      setErrorMessage("End time must be after start time");
+      return;
+    }
+
+    if (start < new Date()) {
+      setErrorMessage("Start time cannot be in the past");
+      return;
+    }
 
     try {
       await addEventToGroup(id, {
@@ -85,7 +100,7 @@ function EventGroupDetails() {
       setNewEvent({ name: "", description: "", startTime: "", endTime: "" });
       await loadEventGroup();
     } catch (err) {
-      alert(`Failed to add event ${err.message}`);
+      setErrorMessage(`Failed to add event: ${err.message}`);
     }
   };
 
@@ -145,6 +160,11 @@ function EventGroupDetails() {
 
         {showAddEvent && (
           <div className="add-event-form-container">
+            {errorMessage && (
+              <div className="error-message" style={{ marginBottom: "12px" }}>
+                {errorMessage}
+              </div>
+            )}
             <form onSubmit={handleAddEvent} className="add-event-form">
               <h3>Add New Event</h3>
 
@@ -200,7 +220,10 @@ function EventGroupDetails() {
               <div className="form-actions">
                 <button
                   type="button"
-                  onClick={() => setShowAddEvent(false)}
+                  onClick={() => {
+                    setShowAddEvent(false);
+                    setErrorMessage("");
+                  }}
                   className="cancel-btn"
                 >
                   Cancel
