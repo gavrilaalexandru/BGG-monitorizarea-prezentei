@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { markAttendance } from "../services/eventsService";
+import QRScanner from "./QRScanner";
 import "./ParticipantDashboard.css";
 
 function ParticipantDashboard() {
@@ -8,16 +9,25 @@ function ParticipantDashboard() {
   const [accessCode, setAccessCode] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState({ type: "", text: "" });
+  const [showScanner, setShowScanner] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    await submitAttendance(accessCode);
+  };
+
+  const submitAttendance = async (code) => {
     setIsLoading(true);
     setMessage({ type: "", text: "" });
 
     try {
-      await markAttendance(accessCode, user.id);
-      setMessage({ type: "success", text: "Attendance marked successfully!" });
+      await markAttendance(code, user.id);
+      setMessage({
+        type: "success",
+        text: "Attendance marked successfully! ✓",
+      });
       setAccessCode("");
+      setShowScanner(false);
     } catch (err) {
       setMessage({
         type: "error",
@@ -28,9 +38,8 @@ function ParticipantDashboard() {
     }
   };
 
-  const handleScanQR = () => {
-    // TODO: Implementăm în pasul următor
-    alert("QR Scanner coming soon!");
+  const handleQRScan = (decodedText) => {
+    submitAttendance(decodedText);
   };
 
   return (
@@ -67,10 +76,17 @@ function ParticipantDashboard() {
           <span>OR</span>
         </div>
 
-        <button onClick={handleScanQR} className="scan-btn">
-          📷 Scan QR Code
+        <button onClick={() => setShowScanner(true)} className="scan-btn">
+          Scan QR Code
         </button>
       </div>
+
+      {showScanner && (
+        <QRScanner
+          onScan={handleQRScan}
+          onClose={() => setShowScanner(false)}
+        />
+      )}
     </div>
   );
 }

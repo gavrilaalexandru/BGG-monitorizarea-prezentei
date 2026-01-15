@@ -1,0 +1,130 @@
+.event-group-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.event-group-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 32px;
+}
+
+.event-group-header h1 {
+    font-size: 32px;
+    font-weight: 700;
+    color: #111827;
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+.event-group-header p {
+    color: #6b7280;
+    font-size: 16px;
+}
+
+.export-btn {
+    padding: 10px 20px;
+    background-color: #10b981;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.export-btn:hover {
+    background-color: #059669;
+}
+
+.events-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.event-item {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.event-item:hover {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-color: #2563eb;
+}
+
+.event-item.open {
+    border-left: 4px solid #10b981;
+}
+
+.event-item.upcoming {
+    border-left: 4px solid #3b82f6;
+}
+
+.event-item.closed {
+    border-left: 4px solid #6b7280;
+}
+
+.event-info h3 {
+    font-size: 20px;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 8px;
+}
+
+.event-info p {
+    color: #6b7280;
+    margin-bottom: 12px;
+}
+
+.event-meta {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    font-size: 14px;
+    color: #6b7280;
+}
+
+.status-badge {
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.status-badge.open {
+    background-color: #d1fae5;
+    color: #065f46;
+}
+
+.status-badge.upcoming {
+    background-color: #dbeafe;
+    color: #1e40af;
+}
+
+.status-badge.closed {
+    background-color: #f3f4f6;
+    color: #374151;
+}
+
+.event-arrow {
+    font-size: 24px;
+    color: #2563eb;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: #6b7280;
+    font-size: 18px;
+}
