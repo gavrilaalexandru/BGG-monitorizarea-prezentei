@@ -1,34 +1,52 @@
 .organizer-dashboard {
     width: 100%;
+    min-height: calc(100vh - 100px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    padding-bottom: 100px;
 }
 
 .dashboard-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 32px;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.dashboard-header h1 {
+    margin-top: 15px;
 }
 
 .dashboard-header h1 {
     font-size: 32px;
     font-weight: 700;
     color: #111827;
+    margin-bottom: 0;
 }
 
 .create-btn {
-    padding: 12px 24px;
+    position: fixed;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 16px 32px;
     background-color: #2563eb;
     color: white;
     border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: 500;
+    border-radius: 12px;
+    font-size: 18px;
+    font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.2s;
+    transition: all 0.3s;
+    box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
+    z-index: 100;
 }
 
 .create-btn:hover {
     background-color: #1d4ed8;
+    transform: translateX(-50%) translateY(-2px);
+    box-shadow: 0 15px 35px rgba(37, 99, 235, 0.4);
 }
 
 .loading {
@@ -45,6 +63,8 @@
     padding: 16px;
     border-radius: 8px;
     margin-bottom: 24px;
+    width: 100%;
+    max-width: 1200px;
 }
 
 .empty-state {
@@ -55,6 +75,8 @@
 }
 
 .groups-grid {
+    width: 100%;
+    max-width: 1200px;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 24px;
