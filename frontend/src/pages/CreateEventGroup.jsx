@@ -10,6 +10,7 @@ function CreateEventGroup() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
+  const { error } = useSelector((state) => state.events);
   const [isLoading, setIsLoading] = useState(false);
 
   const [formData, setFormData] = useState({
@@ -54,6 +55,24 @@ function CreateEventGroup() {
     e.preventDefault();
     setIsLoading(true);
 
+    for (let i = 0; i < events.length; i++) {
+      const event = events[i];
+      const start = new Date(event.startTime);
+      const end = new Date(event.endTime);
+
+      if (start >= end) {
+        dispatch(setError(`Event ${i + 1}: End time must be after start time`));
+        setIsLoading(false);
+        return;
+      }
+
+      if (start < new Date()) {
+        dispatch(setError(`Event ${i + 1}: Start time cannot be in the past`));
+        setIsLoading(false);
+        return;
+      }
+    }
+
     try {
       const groupData = {
         name: formData.name,
@@ -89,6 +108,12 @@ function CreateEventGroup() {
             ← Back
           </button>
         </div>
+
+        {error && (
+          <div className="error-message" style={{ marginBottom: "20px" }}>
+            {error}
+          </div>
+        )}
 
         <form onSubmit={handleSubmit} className="create-event-form">
           <div className="form-section">
