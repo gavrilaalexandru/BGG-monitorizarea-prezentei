@@ -134,3 +134,56 @@
 .scan-btn:hover {
     background-color: #eff6ff;
 }
+
+.attendance-history {
+    margin-top: 40px;
+}
+
+.attendance-history h2 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 20px;
+}
+
+.history-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.history-item {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.history-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.history-info strong {
+    color: #111827;
+    font-size: 16px;
+}
+
+.history-group {
+    color: #6b7280;
+    font-size: 14px;
+}
+
+.history-date {
+    color: #9ca3af;
+    font-size: 13px;
+}
+
+.history-check {
+    color: #10b981;
+    font-size: 24px;
+}

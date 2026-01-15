@@ -1,6 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { markAttendance } from "../services/eventsService";
+import {
+  markAttendance,
+  getParticipantAttendances,
+} from "../services/eventsService";
 import QRScanner from "./QRScanner";
 import "./ParticipantDashboard.css";
 
@@ -10,6 +13,20 @@ function ParticipantDashboard() {
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState({ type: "", text: "" });
   const [showScanner, setShowScanner] = useState(false);
+  const [attendances, setAttendances] = useState([]);
+
+  useEffect(() => {
+    loadAttendances();
+  }, []);
+
+  const loadAttendances = async () => {
+    try {
+      const data = await getParticipantAttendances(user.id);
+      setAttendances(data);
+    } catch (err) {
+      console.error("Failed to load attendances:", err);
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -28,6 +45,7 @@ function ParticipantDashboard() {
       });
       setAccessCode("");
       setShowScanner(false);
+      loadAttendances();
     } catch (err) {
       setMessage({
         type: "error",
@@ -80,6 +98,28 @@ function ParticipantDashboard() {
           Scan QR Code
         </button>
       </div>
+
+      {attendances.length > 0 && (
+        <div className="attendance-history">
+          <h2>My Attendance History</h2>
+          <div className="history-list">
+            {attendances.map((att) => (
+              <div key={att.id} className="history-item">
+                <div className="history-info">
+                  <strong>{att.event.name}</strong>
+                  <span className="history-group">
+                    {att.event.eventGroup?.name}
+                  </span>
+                  <span className="history-date">
+                    {new Date(att.checkInTime).toLocaleString("ro-RO")}
+                  </span>
+                </div>
+                <span className="history-check">✓</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       {showScanner && (
         <QRScanner
